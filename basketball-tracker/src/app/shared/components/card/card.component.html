@@ -1,0 +1,49 @@
+<div *ngIf="teamDetails" class="card mb-4">
+  <div class="card-header">
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col col-md-10">
+          <h5 class="card-title">
+            {{ teamDetails.full_name }} [{{ teamDetails.abbreviation }}]
+          </h5>
+          <p>{{ teamDetails.conference }} conference</p>
+        </div>
+        <div class="col col-md-2 pe-1 text-end">
+          <button [attr.id]="'remove' + teamDetails.abbreviation" class="btn btn-danger mt-2" (click)="removeTeam(teamDetails.id)">
+            X
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col col-md-6">
+          <p class="d-block">Results of past 12 days:</p>
+          <ul>
+            <li
+              *ngFor="let game of teamDetails.simpleGameResults.listWinsOrLoses"
+              class="d-inline-block rounded-circle pt-1 text-white text-center win-lose-icons"
+              [ngClass]="{ 'bg-success' : game, 'bg-danger' : !game }"
+            >
+              {{ game ? "W" : "L" }}
+            </li>
+          </ul>
+          <p>Avg. Points Scored: {{teamDetails.simpleGameResults.avgPoints}}</p>
+          <p>Avg. Points conceded: {{teamDetails.simpleGameResults.avgPointsConceded}}</p>
+        </div>
+        <div class="col col-md-6">
+          <img
+            [src]="getLogoUrl()"
+            alt="teamDetails.abbreviation"
+            class="img-fluid"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <a [routerLink]="['/results', teamDetails.abbreviation]"><button class="btn btn-primary mt-2 mb-2">See game results >></button></a>
+  </div>
+</div>
