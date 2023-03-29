@@ -15,7 +15,7 @@ export class TeamsService {
   constructor(private apiService: ApiService) { }
 
   getTeams(): Observable<Team[]> {
-    return this.apiService.get('teams').pipe(map((t: RawTeams) => t.data));
+    return this.apiService.get<RawTeams>('teams').pipe(map((t) => t.data));
   }
 
   trackTeam(team: Team) {

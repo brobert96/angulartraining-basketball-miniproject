@@ -16,8 +16,8 @@ export class GamesService {
   getGamesFromPast12Days(teamId: number): Observable<GameResults[]> {
     const queryParams = `?${this.past12DaysQueryParam}team_ids[]=${teamId}`;
     return this.apiService
-      .get(`games${queryParams}`)
-      .pipe(map((t: RawGames) => {
+      .get<RawGames>(`games${queryParams}`)
+      .pipe(map((t) => {
         let gameList = t.data;
         gameList = gameList.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();

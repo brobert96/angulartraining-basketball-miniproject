@@ -12,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  get(path: string) {
-    return this.http.get<any>(`${this.apiUrl}/${path}`);
+  get<T>(path: string) {
+    return this.http.get<T>(`${this.apiUrl}/${path}`);
   }
 }
