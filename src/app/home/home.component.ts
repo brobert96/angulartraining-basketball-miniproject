@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Team } from '../shared/models';
+import { SimpleGameResults, Team } from '../shared/models';
 import { GamesService } from '../shared/services';
 import { TeamsService } from '../shared/services/teams/teams.service';
-declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (team) {
       this.gameService
         .getSimpleGamesFromPast12Days(teamId)
-        .subscribe((data: any) => {
+        .subscribe((data: SimpleGameResults) => {
           team.simpleGameResults = data;
           this.teamService.trackTeam(team);
         });

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { GameResults, SimpleGameResults } from '../../models';
 import { ApiService } from '../api/api.service';
+import { RawGames } from '../models/api-results';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class GamesService {
     const queryParams = `?${this.past12DaysQueryParam}team_ids[]=${teamId}`;
     return this.apiService
       .get(`games${queryParams}`)
-      .pipe(map((t: any) => {
-        let gameList = t.data as GameResults[];
+      .pipe(map((t: RawGames) => {
+        let gameList = t.data;
         gameList = gameList.sort((a, b) => {
           return new Date(b.date).getTime() - new Date(a.date).getTime();
         });

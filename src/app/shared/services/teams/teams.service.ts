@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Team } from '../../models';
 import { ApiService } from '../api/api.service';
 import { BehaviorSubject, map, Observable } from 'rxjs';
+import { RawTeams } from '../models/api-results';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class TeamsService {
 
   constructor(private apiService: ApiService) { }
 
-  getTeams() {
-    return this.apiService.get('teams').pipe(map((t: any) => t.data as Team));
+  getTeams(): Observable<Team[]> {
+    return this.apiService.get('teams').pipe(map((t: RawTeams) => t.data));
   }
 
   trackTeam(team: Team) {

@@ -26,7 +26,7 @@ export class TeamDetailsComponent implements OnInit  {
     // Find the product that correspond with the id provided in route.
     let team = this.teamService.getTeamByCode(teamCodeFromRoute);
     if(team){
-      this.gameService.getGamesFromPast12Days(team.id).subscribe((data: any) => {
+      this.gameService.getGamesFromPast12Days(team.id).subscribe((data: GameResults[]) => {
         this.teamDetails = team;
         this.pastGames = data;
       });
